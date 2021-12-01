@@ -9,13 +9,15 @@
   FILE * file_out;
   int tab = 0;
   int lines = 0;
+  char *command;
   Lista * entradas;
   Lista * saidas;
+  
 
   int yylex();
 
-  void yyerror(const char * s) {
-    fprintf(stderr, "%s\n", s);
+  void yyerror() {
+    fprintf(stderr, "Syntax error at line %d in command \"%s\"\n", lines,command);
   };
 
   void insere_entradas(char * var){
@@ -47,9 +49,7 @@
 
   void escreve2_tab(char * str, char * str2){
     tabula();
-    fprintf(file_out,"%s",str);
-    fprintf(file_out,"%s",str2);
-    lines++;
+    escreve2(str,str2);
   }
 
   void escreve2(char * str, char * str2){
@@ -105,21 +105,33 @@
 %type <word> cmd
 
 %%
-program: ENTRADA { write_init_program(); } varlist_in { exibeLista(entradas); } SAIDA varlist_out cmds FIM { write_end_program(); return(0); }
+
+program:{command="ENTRADA";} ENTRADA 
+        { write_init_program();command="VarList_in";} varlist_in
+        { command="SAIDA"; exibeLista(entradas); } SAIDA {escreve("prinftf(");}
+        {command="vaarList_out";} varlist_out {escreve("\n");}
+        {command="cmds";} cmds 
+        {command="FIM";}  FIM { write_end_program(); return(0); }
 
 varlist_in: id',' { insere_entradas($1); escreve($1); } varlist_in
          | id';' { insere_entradas($1); escreve2($1,"\n"); lines++;}
 
-varlist_out: varlist_out id';' { lines++; } 
-        | id',' { }
+varlist_out: id{ fprintf(file_out,"\"s\"%s ",$1); } ','varlist_out  
+         | id';' { fprintf(file_out,"%.*s",(int) strlen($1)-1,$1); lines++;}
 
 cmds: cmd cmds | cmd
 
-cmd: ENQUANTO id { abre_enquanto($2); } FACA cmds FIM { fecha_enquanto();}
+cmd: {command="ENQUANTO";} ENQUANTO {abre_enquanto("");}
+     {command="bool";} bool {fprintf(file_out,"){\n");}
+     {command="faca";}FACA 
+     {command="cmds";}cmds
+     {command="FIM";} FIM { fecha_enquanto();}
 
 cmd: id '=' id { tabula(); fprintf(file_out,"%s;\n",$$); } 
      | INC id { escreve2_tab($2,"++;\n"); }
      | ZERA id { escreve2_tab($2," = 0;\n");}
+
+bool: id { fprintf(file_out,"%s",$1); }
 %%
 
 int main(int argc, char * argv[]) {
