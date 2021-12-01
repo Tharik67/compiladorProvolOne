@@ -2,7 +2,7 @@
   #include <stdio.h>
   #include <stdlib.h>
   #include <string.h>
-  #include "y.tab.h"
+  //#include "y.tab.h"
   #include "lista.h"
 
   extern FILE * yyin;
@@ -46,17 +46,17 @@
     fprintf(file_out,"%s",str);
     lines++;
   }
+  void escreve2(char * str, char * str2){
+    fprintf(file_out,"%s",str);
+    fprintf(file_out,"%s",str2);
+    lines++;
+  }
 
   void escreve2_tab(char * str, char * str2){
     tabula();
     escreve2(str,str2);
   }
 
-  void escreve2(char * str, char * str2){
-    fprintf(file_out,"%s",str);
-    fprintf(file_out,"%s",str2);
-    lines++;
-  }
 
   void abre_enquanto(char * var) {
     tabula();

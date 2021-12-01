@@ -2,6 +2,7 @@
   #include <stdio.h>
   #include <string.h>
   #include "y.tab.h"
+  //#include "Sintatico.tab.h"
 %}
 
 var [a-zA-Z][a-zA-Z0-9]* 
