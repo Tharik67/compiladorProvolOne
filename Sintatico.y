@@ -13,11 +13,10 @@
   Lista * entradas;
   Lista * saidas;
   
-
   int yylex();
 
   void yyerror() {
-    fprintf(stderr, "Syntax error at line %d in command \"%s\"\n", lines,command);
+    fprintf(stderr, "Syntax error at line %d: expected command \"%s\"\n", lines,command);
   };
 
   void insere_entradas(char * var){
@@ -57,7 +56,6 @@
     escreve2(str,str2);
   }
 
-
   void abre_enquanto(char * var) {
     tabula();
     fprintf(file_out,"while (%s) {\n",var);
@@ -66,7 +64,6 @@
   }
 
   void fecha_enquanto(){
-    //tab--; tabula(); fprintf(file_out,"}\n"); lines++;
     tab--;
     tabula();
     fprintf(file_out,"}\n");
