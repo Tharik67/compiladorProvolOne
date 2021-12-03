@@ -3,17 +3,6 @@
 #include "lista.h"
 #include "string.h"
 
-struct no {
-  char info[100];
-  struct no *prox;
-}; 
-
-struct lista {
-  int tam;
-  struct no *ini;
-  struct no *fim;
-};
-
 Lista *lst_cria(void) { 
     Lista *ls = (Lista*) malloc(sizeof(Lista));
     if (ls == NULL) {
@@ -41,8 +30,9 @@ void lst_insFin(Lista* ls, char * elem){
     printf("\n\nlst_insFin: Memoria insuficiente\n\n");
     exit(1);
   }
+  
   strcpy(n->info, elem);
-  //n->info = elem;
+  n->inicializada = 0;
   if (lst_vazia(ls)){
     ls->ini = ls->fim = n;
   } else {
@@ -51,7 +41,8 @@ void lst_insFin(Lista* ls, char * elem){
     ls->fim = n;
   }
   ls->tam += 1;
-  exibeLista(ls);
+  
+  //exibeLista(ls);
 }
 
 void lst_libera(Lista* ls) {
@@ -76,5 +67,35 @@ void exibeLista(Lista * ls) {
     idx++;
   }
   printf("\n");
+}
+
+int buscaInfo(Lista * ls, char * elem) {
+  No * n = ls->ini;
+
+  while(n) {
+    if (strcmp(n->info,elem) == 0) {
+      return 1;
+    }
+    n = n->prox;
+  }
+  return 0;
+}
+
+No * pegaNo(Lista * ls, char * elem) {
+  No * n = ls->ini;
+
+  while(n) {
+    if (strcmp(n->info,elem) == 0) {
+      return n;
+    }
+    n = n->prox;
+  }
+  return NULL;
+}
+
+void inicializa(Lista * ls, char * elem) {
+  No * n = pegaNo(ls,elem);
+  n->inicializada = 1;
+  printf("Inicializou %s!\n", elem);
 }
 

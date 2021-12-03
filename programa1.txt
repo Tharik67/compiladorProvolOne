@@ -1,10 +1,9 @@
 ENTRADA x1, y2, z3;
 SAIDA x1, z3;
-ENQUANTO a FACA
-    ENQUANTO b FACA
-        ZERA y2
+ENQUANTO x1, FACA
+    ENQUANTO x1, FACA
+        ZERA y2,
     FIM
-    INC x1
-    z3 = z3
+    INC x1,
 FIM
 FIM

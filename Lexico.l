@@ -9,6 +9,7 @@ var [a-zA-Z][a-zA-Z0-9]*
 wspc [ \t\n]+
 
 %%
+{wspc} {;}
 ENTRADA return ENTRADA;
 SAIDA return SAIDA;
 FIM return FIM;
@@ -18,7 +19,6 @@ FACA return FACA;
 ZERA return ZERA;
 {var} { yylval.word = &yytext[0]; return id; }
 [=,;] return yytext[0];
-{wspc} {;}
 %%
 
 int yywrap() { return 1; }
