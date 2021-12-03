@@ -363,10 +363,10 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[42] =
     {   0,
-        0,    0,   12,   11,    1,   10,    9,    9,    9,    9,
-        9,    9,    1,    9,    9,    9,    9,    9,    9,    9,
-        9,    9,    9,    4,    6,    9,    9,    9,    9,    7,
-        9,    8,    9,    9,    3,    9,    9,    9,    2,    5,
+        0,    0,   12,   11,   10,    9,    8,    8,    8,    8,
+        8,    8,   10,    8,    8,    8,    8,    8,    8,    8,
+        8,    8,    8,    3,    5,    8,    8,    8,    8,    6,
+        8,    7,    8,    8,    2,    8,    8,    8,    1,    4,
         0
     } ;
 
@@ -748,55 +748,55 @@ do_action:	/* This label is used only to access EOF actions. */
 			goto yy_find_action;
 
 case 1:
-/* rule 1 can match eol */
 YY_RULE_SETUP
 #line 12 "Lexico.l"
-{;}
+return ENTRADA;
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
 #line 13 "Lexico.l"
-return ENTRADA;
+return SAIDA;
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
 #line 14 "Lexico.l"
-return SAIDA;
+return FIM;
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 15 "Lexico.l"
-return FIM;
+return ENQUANTO;
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 16 "Lexico.l"
-return ENQUANTO;
+return INC;
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 17 "Lexico.l"
-return INC;
+return FACA;
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 18 "Lexico.l"
-return FACA;
+return ZERA;
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 19 "Lexico.l"
-return ZERA;
+{ yylval.word = &yytext[0]; return id; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 20 "Lexico.l"
-{ yylval.word = &yytext[0]; return id; }
+return yytext[0];
 	YY_BREAK
 case 10:
+/* rule 10 can match eol */
 YY_RULE_SETUP
 #line 21 "Lexico.l"
-return yytext[0];
+{;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP

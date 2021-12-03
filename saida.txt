@@ -7,3 +7,7 @@ int main(void){
 		}
 		x1,++;
 	}
+	printf("%s",x1,);
+	printf("%s",z3;);
+	return(0);
+}

@@ -43,6 +43,8 @@
   }
 
   void atribui_variavel(char * var1, char * var2) {
+    printf("%s __ %s\n", var1, var2);
+
     if (!buscaInfo(entradas, var1)) {
       printf("Treta na linha %d: Variavel %s nao pode receber valor pois nao existe!\n", lines, var1);
       exit(1);
@@ -154,8 +156,8 @@ varlist_out: id',' { insere_saidas($1); } varlist_out
 
 cmds: cmd {lines++;} cmds | cmd {lines++;}
 
-cmd: {command="ENQUANTO";} ENQUANTO
-     {command="id";} id',' { abre_enquanto($4); }
+cmd: ENQUANTO
+     {command="id";} id',' { abre_enquanto($3); }
      {command="FACA";} FACA { lines++; }
      {command="cmds";} cmds
      {command="FIM";} FIM { fecha_enquanto(); }

@@ -96,6 +96,6 @@ No * pegaNo(Lista * ls, char * elem) {
 void inicializa(Lista * ls, char * elem) {
   No * n = pegaNo(ls,elem);
   n->inicializada = 1;
-  printf("Inicializou %s!\n", elem);
+  //printf("Inicializou %s!\n", elem);
 }
 
