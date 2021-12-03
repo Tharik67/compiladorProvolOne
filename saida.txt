@@ -1,5 +1,6 @@
 int main(void){
 	int x1,y2,z3;
+
 	while (a) {
 		while (b) {
 			y2 = 0;
@@ -7,5 +8,3 @@ int main(void){
 		x1++;
 		z3 = z3;
 	}
-	return(0);
-}

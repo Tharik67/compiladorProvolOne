@@ -469,8 +469,9 @@ char *yytext;
   #include <stdio.h>
   #include <string.h>
   #include "y.tab.h"
-#line 472 "lex.yy.c"
+  //#include "Sintatico.tab.h"
 #line 473 "lex.yy.c"
+#line 474 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -687,9 +688,9 @@ YY_DECL
 		}
 
 	{
-#line 10 "Lexico.l"
+#line 11 "Lexico.l"
 
-#line 692 "lex.yy.c"
+#line 693 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -748,61 +749,61 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 11 "Lexico.l"
+#line 12 "Lexico.l"
 return ENTRADA;
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 12 "Lexico.l"
+#line 13 "Lexico.l"
 return SAIDA;
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 13 "Lexico.l"
+#line 14 "Lexico.l"
 return FIM;
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 14 "Lexico.l"
+#line 15 "Lexico.l"
 return ENQUANTO;
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 15 "Lexico.l"
+#line 16 "Lexico.l"
 return INC;
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 16 "Lexico.l"
+#line 17 "Lexico.l"
 return FACA;
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 17 "Lexico.l"
+#line 18 "Lexico.l"
 return ZERA;
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 18 "Lexico.l"
+#line 19 "Lexico.l"
 { yylval.word = &yytext[0]; return id; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 19 "Lexico.l"
+#line 20 "Lexico.l"
 return yytext[0];
 	YY_BREAK
 case 10:
 /* rule 10 can match eol */
 YY_RULE_SETUP
-#line 20 "Lexico.l"
+#line 21 "Lexico.l"
 {;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 21 "Lexico.l"
+#line 22 "Lexico.l"
 ECHO;
 	YY_BREAK
-#line 805 "lex.yy.c"
+#line 806 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1807,7 +1808,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 21 "Lexico.l"
+#line 22 "Lexico.l"
 
 
 int yywrap() { return 1; }
