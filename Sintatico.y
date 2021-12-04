@@ -12,6 +12,7 @@
   char *command;
   Lista * entradas;
   Lista * saidas;
+  char varEsq[100];
   
   int yylex();
 
@@ -23,7 +24,7 @@
 
   void insere_entradas(char * var){
     if (buscaInfo(entradas,var)) {
-      printf("Cuidado muleke (linha %d): redeclarando a variavel %s\n!", lines, var);
+      printf("Cuidado na linha %d: redeclarando a variavel %s\n!", lines, var);
       return;
     }
     lst_insFin(entradas,var);
@@ -33,7 +34,7 @@
     if (buscaInfo(entradas,var)) {
       lst_insFin(saidas,var);
     } else {
-      printf("Cuidado muleke (linha %d): variavel %s nao existe. Impossivel imprimir!\n", lines, var);
+      printf("Cuidado na linha %d: variavel %s nao existe. Impossivel imprimir!\n", lines, var);
       exit(1);
     }
   }
@@ -43,18 +44,18 @@
   }
 
   void atribui_variavel(char * var1, char * var2) {
-    printf("VAR1: %s\nVAR2: %s\n", var1, var2);
+    //printf("VAR1: %s\nVAR2: %s\n", var1, var2);
 
     if (!buscaInfo(entradas, var1)) {
-      printf("Treta na linha %d: Variavel %s nao pode receber valor pois nao existe!\n", lines, var1);
+      printf("Linha %d: variavel %s nao pode receber valor pois nao existe!\n", lines, var1);
       exit(1);
     } else {
       No * n = pegaNo(entradas, var2);
       if (n == NULL) {
-        printf("Treta na linha %d: Variavel %s nao existe!\n", lines, var2);
+        printf("Linha %d: variavel %s nao existe!\n", lines, var2);
         exit(1);
       } else if (!n->inicializada) {
-        printf("Treta na linha %d: Variavel %s nao inicializada!\n", lines, var2);
+        printf("Linha %d: variavel %s nao inicializada!\n", lines, var2);
         exit(1);
       }
       inicializa_variavel(var1);
@@ -98,7 +99,7 @@
 
   void abre_enquanto(char * var) {
     if (!buscaInfo(entradas,var)) {
-      printf("Problema no enquanto (linha %d): variavel inexistente %s!\n", lines, var);
+      printf("Deu ruim no ENQUANTO (linha %d): variavel inexistente %s!\n", lines, var);
       exit(1);
     }
     tabula();
@@ -174,7 +175,7 @@ cmd: ENQUANTO
      {command="cmds";} cmds
      {command="FIM";} FIM { fecha_enquanto(); }
 
-cmd: id '=' id { atribui_variavel($1,$3); tabula(); fprintf(file_out,"%s;\n",$$); } 
+cmd: id {strcpy(varEsq, $1);} '=' id { atribui_variavel(varEsq,$4); tabula(); fprintf(file_out,"%s;\n",$$); } 
      | INC id { inicializa_variavel($2); escreve2_tab($2,"++;\n"); }
      | ZERA id { inicializa_variavel($2); escreve2_tab($2," = 0;\n");}
 %%

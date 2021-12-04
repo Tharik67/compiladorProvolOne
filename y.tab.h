@@ -64,7 +64,7 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 149 "Sintatico.y"
+#line 150 "Sintatico.y"
 {char * word;}
 /* Line 1529 of yacc.c.  */
 #line 71 "y.tab.h"
