@@ -43,7 +43,7 @@
   }
 
   void atribui_variavel(char * var1, char * var2) {
-    printf("%s __ %s\n", var1, var2);
+    printf("VAR1: %s\nVAR2: %s\n", var1, var2);
 
     if (!buscaInfo(entradas, var1)) {
       printf("Treta na linha %d: Variavel %s nao pode receber valor pois nao existe!\n", lines, var1);
@@ -66,14 +66,26 @@
       fprintf(file_out,"\t");
   }
 
+  void escreve(char * str){
+    fprintf(file_out,"%s",str);
+  }
+
   void escreve_tab(char * str){
     tabula();
     fprintf(file_out,"%s",str);
   }
 
-  void escreve(char * str){
+  void escreve_var(char * str){
+    str[strlen(str)-1] = 0;
     fprintf(file_out,"%s",str);
   }
+
+  void escreve_var_tab(char * str){
+    str[strlen(str)-1] = 0;
+    tabula();
+    fprintf(file_out,"%s",str);
+  }
+
   void escreve2(char * str, char * str2){
     fprintf(file_out,"%s",str);
     fprintf(file_out,"%s",str2);
@@ -148,23 +160,23 @@ program:{command="ENTRADA";} ENTRADA
         {command="cmds";} cmds 
         {command="FIM";} FIM { write_end_program(); return(0); }
 
-varlist_in: id',' { insere_entradas($1); escreve($1); } varlist_in
-          | id';' { insere_entradas($1); escreve2($1,"\n"); lines++; }
+varlist_in: id',' { $1[strlen($1)-1] = 0; insere_entradas($1); escreve2($1,", "); } varlist_in
+          | id';' { $1[strlen($1)-1] = 0; insere_entradas($1); escreve2($1,";\n"); lines++; }
 
-varlist_out: id',' { insere_saidas($1); } varlist_out  
-          | id';' { insere_saidas($1); lines++; }
+varlist_out: id',' { $1[strlen($1)-1] = 0; insere_saidas($1); } varlist_out  
+          | id';' { $1[strlen($1)-1] = 0; insere_saidas($1); lines++; }
 
 cmds: cmd {lines++;} cmds | cmd {lines++;}
 
 cmd: ENQUANTO
-     {command="id";} id',' { abre_enquanto($3); }
+     {command="id";} id { abre_enquanto($3); }
      {command="FACA";} FACA { lines++; }
      {command="cmds";} cmds
      {command="FIM";} FIM { fecha_enquanto(); }
 
-cmd: id',' '=' id';' { atribui_variavel($1,$4); tabula(); fprintf(file_out,"%s;\n",$$); } 
-     | INC id',' { inicializa_variavel($2); escreve2_tab($2,"++;\n"); }
-     | ZERA id',' { inicializa_variavel($2); escreve2_tab($2," = 0;\n");}
+cmd: id '=' id { atribui_variavel($1,$3); tabula(); fprintf(file_out,"%s;\n",$$); } 
+     | INC id { inicializa_variavel($2); escreve2_tab($2,"++;\n"); }
+     | ZERA id { inicializa_variavel($2); escreve2_tab($2," = 0;\n");}
 %%
 
 int main(int argc, char * argv[]) {

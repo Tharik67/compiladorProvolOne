@@ -30,9 +30,10 @@ void lst_insFin(Lista* ls, char * elem){
     printf("\n\nlst_insFin: Memoria insuficiente\n\n");
     exit(1);
   }
-  
+
   strcpy(n->info, elem);
   n->inicializada = 0;
+
   if (lst_vazia(ls)){
     ls->ini = ls->fim = n;
   } else {
@@ -95,7 +96,12 @@ No * pegaNo(Lista * ls, char * elem) {
 
 void inicializa(Lista * ls, char * elem) {
   No * n = pegaNo(ls,elem);
-  n->inicializada = 1;
-  //printf("Inicializou %s!\n", elem);
+  if (n == NULL) {
+    printf("Impossivel inicializar variavel %s pois ela nao foi encontrada\n", elem);
+  } else {
+    n->inicializada = 1;
+    //printf("Inicializou %s!\n", elem);
+  }
+  
 }
 
