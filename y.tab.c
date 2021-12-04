@@ -191,8 +191,12 @@
   }
 
   void abre_enquanto(char * var) {
-    if (!buscaInfo(entradas,var)) {
-      printf("Deu ruim no ENQUANTO (linha %d): variavel inexistente %s!\n", lines, var);
+    No * n = pegaNo(entradas,var);
+    if (n == NULL) {
+      printf("Deu ruim no ENQUANTO (linha %d): variavel %s inexistente!\n", lines, var);
+      exit(1);
+    } else if (!n->inicializada) {
+      printf("Deu ruim no ENQUANTO (linha %d): variavel %s nao inicializada!\n", lines, var);
       exit(1);
     }
     tabula();
@@ -250,10 +254,10 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 150 "Sintatico.y"
+#line 154 "Sintatico.y"
 {char * word;}
 /* Line 193 of yacc.c.  */
-#line 257 "y.tab.c"
+#line 261 "y.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -266,7 +270,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 270 "y.tab.c"
+#line 274 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -557,9 +561,9 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,   157,   157,   158,   159,   160,   160,   161,   162,   157,
-     164,   164,   165,   167,   167,   168,   170,   170,   170,   173,
-     173,   174,   174,   175,   176,   172,   178,   178,   179,   180
+       0,   161,   161,   162,   163,   164,   164,   165,   166,   161,
+     168,   168,   169,   171,   171,   172,   174,   174,   174,   177,
+     177,   178,   178,   179,   180,   176,   182,   182,   183,   184
 };
 #endif
 
@@ -1486,133 +1490,133 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 157 "Sintatico.y"
+#line 161 "Sintatico.y"
     {command="ENTRADA";}
     break;
 
   case 3:
-#line 158 "Sintatico.y"
+#line 162 "Sintatico.y"
     {write_init_program(); command="VarList_in";}
     break;
 
   case 4:
-#line 159 "Sintatico.y"
+#line 163 "Sintatico.y"
     {command="SAIDA";}
     break;
 
   case 5:
-#line 160 "Sintatico.y"
+#line 164 "Sintatico.y"
     {command="VarList_out";}
     break;
 
   case 6:
-#line 160 "Sintatico.y"
+#line 164 "Sintatico.y"
     { escreve("\n"); }
     break;
 
   case 7:
-#line 161 "Sintatico.y"
+#line 165 "Sintatico.y"
     {command="cmds";}
     break;
 
   case 8:
-#line 162 "Sintatico.y"
+#line 166 "Sintatico.y"
     {command="FIM";}
     break;
 
   case 9:
-#line 162 "Sintatico.y"
+#line 166 "Sintatico.y"
     { write_end_program(); return(0); }
     break;
 
   case 10:
-#line 164 "Sintatico.y"
+#line 168 "Sintatico.y"
     { (yyvsp[(1) - (2)].word)[strlen((yyvsp[(1) - (2)].word))-1] = 0; insere_entradas((yyvsp[(1) - (2)].word)); escreve2((yyvsp[(1) - (2)].word),", "); }
     break;
 
   case 12:
-#line 165 "Sintatico.y"
+#line 169 "Sintatico.y"
     { (yyvsp[(1) - (2)].word)[strlen((yyvsp[(1) - (2)].word))-1] = 0; insere_entradas((yyvsp[(1) - (2)].word)); escreve2((yyvsp[(1) - (2)].word),";\n"); lines++; }
     break;
 
   case 13:
-#line 167 "Sintatico.y"
+#line 171 "Sintatico.y"
     { (yyvsp[(1) - (2)].word)[strlen((yyvsp[(1) - (2)].word))-1] = 0; insere_saidas((yyvsp[(1) - (2)].word)); }
     break;
 
   case 15:
-#line 168 "Sintatico.y"
+#line 172 "Sintatico.y"
     { (yyvsp[(1) - (2)].word)[strlen((yyvsp[(1) - (2)].word))-1] = 0; insere_saidas((yyvsp[(1) - (2)].word)); lines++; }
     break;
 
   case 16:
-#line 170 "Sintatico.y"
+#line 174 "Sintatico.y"
     {lines++;}
     break;
 
   case 18:
-#line 170 "Sintatico.y"
+#line 174 "Sintatico.y"
     {lines++;}
     break;
 
   case 19:
-#line 173 "Sintatico.y"
+#line 177 "Sintatico.y"
     {command="id";}
     break;
 
   case 20:
-#line 173 "Sintatico.y"
+#line 177 "Sintatico.y"
     { abre_enquanto((yyvsp[(3) - (3)].word)); }
     break;
 
   case 21:
-#line 174 "Sintatico.y"
+#line 178 "Sintatico.y"
     {command="FACA";}
     break;
 
   case 22:
-#line 174 "Sintatico.y"
+#line 178 "Sintatico.y"
     { lines++; }
     break;
 
   case 23:
-#line 175 "Sintatico.y"
+#line 179 "Sintatico.y"
     {command="cmds";}
     break;
 
   case 24:
-#line 176 "Sintatico.y"
+#line 180 "Sintatico.y"
     {command="FIM";}
     break;
 
   case 25:
-#line 176 "Sintatico.y"
+#line 180 "Sintatico.y"
     { fecha_enquanto(); }
     break;
 
   case 26:
-#line 178 "Sintatico.y"
+#line 182 "Sintatico.y"
     {strcpy(varEsq, (yyvsp[(1) - (1)].word));}
     break;
 
   case 27:
-#line 178 "Sintatico.y"
+#line 182 "Sintatico.y"
     { atribui_variavel(varEsq,(yyvsp[(4) - (4)].word)); tabula(); fprintf(file_out,"%s;\n",(yyval.word)); }
     break;
 
   case 28:
-#line 179 "Sintatico.y"
+#line 183 "Sintatico.y"
     { inicializa_variavel((yyvsp[(2) - (2)].word)); escreve2_tab((yyvsp[(2) - (2)].word),"++;\n"); }
     break;
 
   case 29:
-#line 180 "Sintatico.y"
+#line 184 "Sintatico.y"
     { inicializa_variavel((yyvsp[(2) - (2)].word)); escreve2_tab((yyvsp[(2) - (2)].word)," = 0;\n");}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1616 "y.tab.c"
+#line 1620 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1826,7 +1830,7 @@ yyreturn:
 }
 
 
-#line 181 "Sintatico.y"
+#line 185 "Sintatico.y"
 
 
 int main(int argc, char * argv[]) {

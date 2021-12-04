@@ -98,8 +98,12 @@
   }
 
   void abre_enquanto(char * var) {
-    if (!buscaInfo(entradas,var)) {
-      printf("Deu ruim no ENQUANTO (linha %d): variavel inexistente %s!\n", lines, var);
+    No * n = pegaNo(entradas,var);
+    if (n == NULL) {
+      printf("Deu ruim no ENQUANTO (linha %d): variavel %s inexistente!\n", lines, var);
+      exit(1);
+    } else if (!n->inicializada) {
+      printf("Deu ruim no ENQUANTO (linha %d): variavel %s nao inicializada!\n", lines, var);
       exit(1);
     }
     tabula();

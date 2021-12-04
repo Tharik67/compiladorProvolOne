@@ -2,8 +2,9 @@ int main(void){
 	int x1, y2, z3;
 
 	z3++;
-	while (x1) {
-		while (z3) {
+	x1 = 0;
+	while (z3) {
+		while (x1) {
 			y2++;
 		}
 	}
