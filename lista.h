@@ -10,9 +10,6 @@ typedef struct lista {
   struct no *fim;
 } Lista;
 
-// typedef struct no No;
-// typedef struct lista Lista;
-
 Lista *lst_cria(void);
 int lst_vazia(Lista* ls);
 void lst_insFin(Lista* ls, char* elem);

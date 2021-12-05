@@ -1,0 +1,11 @@
+ENTRADA x1, y2, z3;
+SAIDA x1, z3;
+INC z3
+ZERA x1
+ENQUANTO y2 FACA
+    ENQUANTO x1 FACA
+        INC y2
+    FIM
+FIM
+x1 = y2
+FIM

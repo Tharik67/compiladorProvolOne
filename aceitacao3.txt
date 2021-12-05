@@ -1,0 +1,11 @@
+ENTRADA x1;
+SAIDA x1;
+ZERA x1
+ENQUANTO x1 FACA
+    ENQUANTO x1 FACA
+        ENQUANTO x1 FACA
+            INC x1
+        FIM
+    FIM
+FIM
+FIM

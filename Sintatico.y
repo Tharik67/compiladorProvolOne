@@ -18,13 +18,13 @@
 
   void yyerror(const char *s){
     // Sem o parametro s ele reclama
-    fprintf(stderr, "Treta na linha %d: cade o comando \"%s\" hein? Ta achando que aqui eh brincadeira?\n", lines,command);
+    fprintf(stderr, "Treta na linha %d: cade %s hein? Ta achando que aqui eh brincadeira?\n", lines,command);
     exit(1);
   };
 
   void insere_entradas(char * var){
     if (buscaInfo(entradas,var)) {
-      printf("Cuidado na linha %d: redeclarando a variavel %s\n!", lines, var);
+      printf("Cuidado na linha %d: redeclarando a variavel %s!\n", lines, var);
       return;
     }
     lst_insFin(entradas,var);
@@ -158,12 +158,12 @@
 %type <word> cmd
 %%
 
-program:{command="ENTRADA";} ENTRADA 
-        {write_init_program(); command="VarList_in";} varlist_in
-        {command="SAIDA";} SAIDA
-        {command="VarList_out";} varlist_out { escreve("\n"); }
-        {command="cmds";} cmds 
-        {command="FIM";} FIM { write_end_program(); return(0); }
+program:{command="o comando ENTRADA";} ENTRADA 
+        {write_init_program(); command="a lista de variavies";} varlist_in
+        {command="o comando SAIDA";} SAIDA
+        {command="a lista de variaveis";} varlist_out { escreve("\n"); }
+        {command="os comandos";} cmds 
+        {command="o comando FIM";} FIM { write_end_program(); return(0); }
 
 varlist_in: id',' { $1[strlen($1)-1] = 0; insere_entradas($1); escreve2($1,", "); } varlist_in
           | id';' { $1[strlen($1)-1] = 0; insere_entradas($1); escreve2($1,";\n"); lines++; }
@@ -171,17 +171,17 @@ varlist_in: id',' { $1[strlen($1)-1] = 0; insere_entradas($1); escreve2($1,", ")
 varlist_out: id',' { $1[strlen($1)-1] = 0; insere_saidas($1); } varlist_out  
           | id';' { $1[strlen($1)-1] = 0; insere_saidas($1); lines++; }
 
-cmds: cmd {lines++;} cmds | cmd {lines++;}
+cmds: cmd {lines++; command="o comeco do comando";} cmds | cmd {lines++;}
 
 cmd: ENQUANTO
-     {command="id";} id { abre_enquanto($3); }
-     {command="FACA";} FACA { lines++; }
-     {command="cmds";} cmds
-     {command="FIM";} FIM { fecha_enquanto(); }
+     {command="a variavel";} id { abre_enquanto($3); }
+     {command="o comando FACA";} FACA { lines++; }
+     {command="o comeco do comando";} cmds
+     {command="o comando FIM";} FIM { fecha_enquanto(); }
 
-cmd: id {strcpy(varEsq, $1);} '=' id { atribui_variavel(varEsq,$4); tabula(); fprintf(file_out,"%s;\n",$$); } 
-     | INC id { inicializa_variavel($2); escreve2_tab($2,"++;\n"); }
-     | ZERA id { inicializa_variavel($2); escreve2_tab($2," = 0;\n");}
+cmd: id {strcpy(varEsq, $1); command="o comando =";} '=' {command="a variavel";} id { atribui_variavel(varEsq,$5); tabula(); fprintf(file_out,"%s;\n",$$); } 
+     | INC {command="a variavel";} id { inicializa_variavel($3); escreve2_tab($3,"++;\n"); }
+     | ZERA {command="a variavel";} id { inicializa_variavel($3); escreve2_tab($3," = 0;\n");}
 %%
 
 int main(int argc, char * argv[]) {

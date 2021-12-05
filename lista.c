@@ -3,7 +3,7 @@
 #include "lista.h"
 #include "string.h"
 
-Lista *lst_cria(void) { 
+Lista * lst_cria(void) { 
     Lista *ls = (Lista*) malloc(sizeof(Lista));
     if (ls == NULL) {
         printf("\n\nMemoria insuficiente\n\n");

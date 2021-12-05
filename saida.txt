@@ -1,15 +1,14 @@
 int main(void){
-	int x1, y2, z3;
+	int x1;
 
-	z3++;
 	x1 = 0;
-	while (z3) {
+	while (x1) {
 		while (x1) {
-			y2++;
+			while (x1) {
+				x1++;
+			}
 		}
 	}
-	x1 = y2;
 	printf("%s",x1);
-	printf("%s",z3);
 	return(0);
 }
